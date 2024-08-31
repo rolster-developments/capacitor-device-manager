@@ -3,6 +3,7 @@ export type InformationServices =
   | 'google'
   | 'google&huawei'
   | 'huawei'
+  | 'none'
   | 'web';
 
 export interface InformationResult {
@@ -12,10 +13,6 @@ export interface InformationResult {
 }
 
 export interface ServicesResult {
-  availability: boolean;
-}
-
-export interface HuaweiServicesResult {
   availability: boolean;
 }
 

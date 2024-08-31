@@ -60,14 +60,14 @@ public class DeviceManagerPlugin extends Plugin {
     }
 
     private boolean hasGoogleServicesAvailable() {
-        var services = GoogleApiAvailability.getInstance();
+        GoogleApiAvailability services = GoogleApiAvailability.getInstance();
         int status = services.isGooglePlayServicesAvailable(getContext());
         
         return status == com.google.android.gms.common.ConnectionResult.SUCCESS;
     }
 
     private boolean hasHuaweiServicesAvailable() {
-        var services = HuaweiApiAvailability.getInstance();
+        HuaweiApiAvailability services = HuaweiApiAvailability.getInstance();
         int status = services.isHuaweiMobileServicesAvailable(getContext());
         
         return status == com.huawei.hms.api.ConnectionResult.SUCCESS;

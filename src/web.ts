@@ -1,9 +1,8 @@
 import { WebPlugin } from '@capacitor/core';
 import {
   DeviceManagerPlugin,
-  ServicesResult,
-  HuaweiServicesResult,
-  InformationResult
+  InformationResult,
+  ServicesResult
 } from './definitions';
 
 export class DeviceManagerWeb extends WebPlugin implements DeviceManagerPlugin {
@@ -19,11 +18,11 @@ export class DeviceManagerWeb extends WebPlugin implements DeviceManagerPlugin {
     return Promise.resolve({ availability: false });
   }
 
-  public hasHuaweiServices(): Promise<HuaweiServicesResult> {
+  public hasHuaweiServices(): Promise<ServicesResult> {
     return Promise.resolve({ availability: false });
   }
 
-  public hasAppleServices(): Promise<HuaweiServicesResult> {
+  public hasAppleServices(): Promise<ServicesResult> {
     return Promise.resolve({ availability: false });
   }
 }
