@@ -3,10 +3,10 @@ import Capacitor
 
 @objc(DeviceManagerPlugin)
 public class DeviceManagerPlugin: CAPPlugin {
-    @objc func getInformation(_ call: CAPPluginCall) {
+    @objc func requestInformation(_ call: CAPPluginCall) {
         call.resolve([
-            "platform": "ios",
             "compilationCode": Bundle.main.buildVersionNumber ?? "0.0.1",
+            "services": "apple",
             "versionCode": Bundle.main.releaseVersionNumber ?? "0.0.0"
         ])
     }
@@ -20,6 +20,12 @@ public class DeviceManagerPlugin: CAPPlugin {
     @objc func hasHuaweiServices(_ call: CAPPluginCall) {
         call.resolve([
             "availability": false
+        ])
+    }
+
+    @objc func hasAppleServices(_ call: CAPPluginCall) {
+        call.resolve([
+            "availability": true
         ])
     }
 }

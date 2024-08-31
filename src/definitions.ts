@@ -1,11 +1,17 @@
-export type InformationPlatform = 'web' | 'android' | 'huawei' | 'ios';
+export type InformationServices =
+  | 'apple'
+  | 'google'
+  | 'google&huawei'
+  | 'huawei'
+  | 'web';
 
 export interface InformationResult {
   compilationCode: string;
-  platform: InformationPlatform;
+  services: InformationServices;
+  versionCode: string;
 }
 
-export interface GoogleServicesResult {
+export interface ServicesResult {
   availability: boolean;
 }
 
@@ -14,9 +20,11 @@ export interface HuaweiServicesResult {
 }
 
 export interface DeviceManagerPlugin {
-  getInformation(): Promise<InformationResult>;
+  requestInformation(): Promise<InformationResult>;
 
-  hasGoogleServices(): Promise<GoogleServicesResult>;
+  hasGoogleServices(): Promise<ServicesResult>;
 
-  hasHuaweiServices(): Promise<HuaweiServicesResult>;
+  hasHuaweiServices(): Promise<ServicesResult>;
+
+  hasAppleServices(): Promise<ServicesResult>;
 }
