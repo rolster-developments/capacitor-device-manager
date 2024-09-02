@@ -1,6 +1,6 @@
 # Rolster Capacitor DeviceManager
 
-Plugin for device manager in mobile Android, Huawei and iOS.
+Plugin for device manager information in mobile Android, Huawei and iOS.
 
 ## Installation
 
