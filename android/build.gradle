@@ -9,8 +9,8 @@ ext {
 
 buildscript {
     repositories {
-        jcenter()
         google()
+        mavenCentral()
         maven {
             url 'https://developer.huawei.com/repo/'
         }
@@ -49,7 +49,6 @@ android {
 
 repositories {
     google()
-    jcenter()
     mavenCentral()
     maven {
         url 'https://developer.huawei.com/repo/'
