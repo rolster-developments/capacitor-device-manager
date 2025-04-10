@@ -1,5 +1,6 @@
 package com.rolster.capacitor.device;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.getcapacitor.JSObject;
@@ -7,11 +8,26 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.huawei.hms.api.HuaweiApiAvailability;
 
 @CapacitorPlugin(name = "DeviceManager")
 public class DeviceManagerPlugin extends Plugin {
+    private StoreVerifyServices storeVerifyServices;
+
+    @Override
+    public void load() {
+        try {
+            String storeVerifyServicesDef = BuildConfig.IS_HMS ?
+                "com.rolster.capacitor.device.huawei.HuaweiVerifyServices" :
+                "com.rolster.capacitor.device.google.GoogleVerifyServices";
+            
+            storeVerifyServices = (StoreVerifyServices) Class.forName(storeVerifyServicesDef)
+                    .getConstructor(Context.class)
+                    .newInstance(getContext());
+        } catch (Exception e) {
+            throw new RuntimeException("Error inicializando StoreVerifyServices", e);
+        }
+    }
+
     @PluginMethod
     public void requestInformation(PluginCall call) {
         JSObject result = new JSObject();
@@ -22,9 +38,7 @@ public class DeviceManagerPlugin extends Plugin {
         boolean googleServices = hasGoogleServicesAvailable();
         boolean huaweiServices = hasHuaweiServicesAvailable();
 
-        if (googleServices && huaweiServices) {
-            result.put("services", "google&huawei");
-        } else if (googleServices) {
+        if (googleServices) {
             result.put("services", "google");
         } else if (huaweiServices) {
             result.put("services", "huawei");
@@ -60,17 +74,11 @@ public class DeviceManagerPlugin extends Plugin {
     }
 
     private boolean hasGoogleServicesAvailable() {
-        GoogleApiAvailability services = GoogleApiAvailability.getInstance();
-        int status = services.isGooglePlayServicesAvailable(getContext());
-        
-        return status == com.google.android.gms.common.ConnectionResult.SUCCESS;
+        return storeVerifyServices.hasGoogle();
     }
 
     private boolean hasHuaweiServicesAvailable() {
-        HuaweiApiAvailability services = HuaweiApiAvailability.getInstance();
-        int status = services.isHuaweiMobileServicesAvailable(getContext());
-        
-        return status == com.huawei.hms.api.ConnectionResult.SUCCESS;
+        return storeVerifyServices.hasHuawei();
     }
     
     private String getVersionCode()  {
