@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.rolster.capacitor.device.StoreVerifyServices;
+import com.rolster.capacitor.device.DeviceManagerResolver;
 
-public class GoogleVerifyServices implements StoreVerifyServices {
+public class GoogleDeviceManagerResolver implements DeviceManagerResolver {
     private final Context context;
 
-    public GoogleVerifyServices(Context context) {
+    public GoogleDeviceManagerResolver(Context context) {
         this.context = context;
     }
 

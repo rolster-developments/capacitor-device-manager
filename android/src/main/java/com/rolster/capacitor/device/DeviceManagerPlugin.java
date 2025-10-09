@@ -11,20 +11,20 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 
 @CapacitorPlugin(name = "DeviceManager")
 public class DeviceManagerPlugin extends Plugin {
-    private StoreVerifyServices storeVerifyServices;
+    private DeviceManagerResolver deviceManagerResolver;
 
     @Override
     public void load() {
         try {
-            String storeVerifyServicesDef = BuildConfig.IS_HMS ?
-                "com.rolster.capacitor.device.huawei.HuaweiVerifyServices" :
-                "com.rolster.capacitor.device.google.GoogleVerifyServices";
+            String deviceManagerResolverDef = BuildConfig.IS_HMS ?
+                "com.rolster.capacitor.device.huawei.HuaweiDeviceManagerResolver" :
+                "com.rolster.capacitor.device.google.GoogleDeviceManagerResolver";
             
-            storeVerifyServices = (StoreVerifyServices) Class.forName(storeVerifyServicesDef)
+            deviceManagerResolver = (DeviceManagerResolver) Class.forName(deviceManagerResolverDef)
                     .getConstructor(Context.class)
                     .newInstance(getContext());
         } catch (Exception e) {
-            throw new RuntimeException("Error inicializando StoreVerifyServices", e);
+            throw new RuntimeException("Error inicializando DeviceManagerResolver", e);
         }
     }
 
@@ -74,11 +74,11 @@ public class DeviceManagerPlugin extends Plugin {
     }
 
     private boolean hasGoogleServicesAvailable() {
-        return storeVerifyServices.hasGoogle();
+        return deviceManagerResolver.hasGoogle();
     }
 
     private boolean hasHuaweiServicesAvailable() {
-        return storeVerifyServices.hasHuawei();
+        return deviceManagerResolver.hasHuawei();
     }
     
     private String getVersionCode()  {

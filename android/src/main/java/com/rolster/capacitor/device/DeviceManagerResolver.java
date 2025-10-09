@@ -1,6 +1,6 @@
 package com.rolster.capacitor.device;
 
-public interface StoreVerifyServices {
+public interface DeviceManagerResolver {
     boolean hasGoogle();
 
     boolean hasHuawei();

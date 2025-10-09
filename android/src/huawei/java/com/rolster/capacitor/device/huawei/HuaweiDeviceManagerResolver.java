@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.huawei.hms.api.ConnectionResult;
 import com.huawei.hms.api.HuaweiApiAvailability;
-import com.rolster.capacitor.device.StoreVerifyServices;
+import com.rolster.capacitor.device.DeviceManagerResolver;
 
-public class HuaweiVerifyServices implements StoreVerifyServices {
+public class HuaweiDeviceManagerResolver implements DeviceManagerResolver {
     private final Context context;
 
-    public HuaweiVerifyServices(Context context) {
+    public HuaweiDeviceManagerResolver(Context context) {
         this.context = context;
     }
 
